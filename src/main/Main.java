@@ -50,7 +50,7 @@ public class Main {
             showMessageDialog(null, "Sum of salary from people whose name starts with 'M': R$ " + format("%.2f", sum), "SOMA FILTRADA", INFORMATION_MESSAGE);
 
         } catch (IOException e) {
-            showMessageDialog(null, e.getMessage());
+            showMessageDialog(null, e.getMessage(), "ERROR", ERROR_MESSAGE);
         }
 
     }
