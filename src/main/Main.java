@@ -50,7 +50,6 @@ public class Main {
                     .reduce(0.0, Double::sum);
             showMessageDialog(null, "Sum of salary from people whose name starts with 'M': R$ " + format("%.2f", sum));
 
-
         } catch (IOException e) {
             showMessageDialog(null, e.getMessage());
         }
