@@ -39,6 +39,10 @@ public class Main {
             emails.forEach(email -> response.append(email.getEmail()).append("\n"));
             showMessageDialog(null, response);
 
+            peopleSum = people.stream().filter(p -> p.getName().charAt(0) == 'M').collect(toList());
+            sum = peopleSum.stream().map(p -> p.getSalary()).reduce(0.0, (x, y) ->  x + y);
+            showMessageDialog(null, "A SOMA DOS SALÁRIOS DOS NOMES QUE COMEÇAM EM 'M' É: R$ " + format("%.2f", sum));
+
 
         } catch (IOException e) {
             showMessageDialog(null, e.getMessage());
