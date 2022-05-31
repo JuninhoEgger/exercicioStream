@@ -33,18 +33,18 @@ public class Main {
 
             List<String> emails = people.stream()
                     .filter(p -> p.getSalary() > salary)
-                    .map(p -> p.getEmail())
+                    .map(Person::getEmail)
                     .sorted()
                     .collect(toList());
-            StringBuilder emailsToString = new StringBuilder("Email of people whose salary is more than " + format("%.2f", salary) + "\n");
+            StringBuilder emailsToString = new StringBuilder("Email of people whose salary is more than R$ " + format("%.2f", salary) + "\n");
             emails.forEach(email -> emailsToString.append(email).append("\n"));
             showMessageDialog(null, emailsToString);
 
             double sum = people.stream()
                     .filter(p -> p.getName().charAt(0) == 'M')
-                    .map(p -> p.getSalary())
-                    .reduce(0.0, (x, y) -> x + y);
-            showMessageDialog(null, "Sum of salary from people whose name starts with 'M': " + format("%.2f", sum));
+                    .map(Person::getSalary)
+                    .reduce(0.0, Double::sum);
+            showMessageDialog(null, "Sum of salary from people whose name starts with 'M': R$ " + format("%.2f", sum));
 
 
         } catch (IOException e) {
