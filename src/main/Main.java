@@ -2,7 +2,6 @@ package main;
 
 import person.Person;
 
-import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -18,15 +17,11 @@ import static javax.swing.JOptionPane.showMessageDialog;
 public class Main {
     public static void main(String[] args) {
 
-        List<Person> people = new ArrayList<>();
-        List<Person> emails;
-        List<Person> peopleSum;
-        Double sum = 0.0;
-
         try (BufferedReader br = new BufferedReader(new FileReader("C:\\estudos\\people.txt"))) {
 
+            List<Person> people = new ArrayList<>();
+
             String line = br.readLine();
-            Double salary = parseDouble(showInputDialog("ENTER SALARY:"));
 
             while (line != null) {
                 String[] fields = line.split(",");
@@ -34,14 +29,22 @@ public class Main {
                 line = br.readLine();
             }
 
-            emails = people.stream().filter(p -> p.getSalary() >= salary).collect(toList());
-            StringBuilder response = new StringBuilder("EMAIL OF PEOPLE WHOSE SALARY IS MORE THAN R$ " + format("%.2f", salary) + "\n");
-            emails.forEach(email -> response.append(email.getEmail()).append("\n"));
-            showMessageDialog(null, response);
+            Double salary = parseDouble(showInputDialog("ENTER SALARY:"));
 
-            peopleSum = people.stream().filter(p -> p.getName().charAt(0) == 'M').collect(toList());
-            sum = peopleSum.stream().map(p -> p.getSalary()).reduce(0.0, (x, y) ->  x + y);
-            showMessageDialog(null, "A SOMA DOS SALÁRIOS DOS NOMES QUE COMEÇAM EM 'M' É: R$ " + format("%.2f", sum));
+            List<String> emails = people.stream()
+                    .filter(p -> p.getSalary() > salary)
+                    .map(p -> p.getEmail())
+                    .sorted()
+                    .collect(toList());
+            StringBuilder emailsToString = new StringBuilder("Email of people whose salary is more than " + format("%.2f", salary) + "\n");
+            emails.forEach(email -> emailsToString.append(email).append("\n"));
+            showMessageDialog(null, emailsToString);
+
+            double sum = people.stream()
+                    .filter(p -> p.getName().charAt(0) == 'M')
+                    .map(p -> p.getSalary())
+                    .reduce(0.0, (x, y) -> x + y);
+            showMessageDialog(null, "Sum of salary from people whose name starts with 'M': " + format("%.2f", sum));
 
 
         } catch (IOException e) {
