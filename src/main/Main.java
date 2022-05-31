@@ -29,6 +29,10 @@ public class Main {
                 line = br.readLine();
             }
 
+            StringBuilder response = new StringBuilder("PESSOAS\n");
+            people.forEach(person -> response.append(person).append("\n"));
+            showMessageDialog(null, response);
+
             Double salary = parseDouble(showInputDialog("ENTER SALARY:"));
 
             List<String> emails = people.stream()
