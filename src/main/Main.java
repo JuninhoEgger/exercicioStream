@@ -11,8 +11,7 @@ import java.util.List;
 import static java.lang.Double.parseDouble;
 import static java.lang.String.format;
 import static java.util.stream.Collectors.toList;
-import static javax.swing.JOptionPane.showInputDialog;
-import static javax.swing.JOptionPane.showMessageDialog;
+import static javax.swing.JOptionPane.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -31,7 +30,7 @@ public class Main {
 
             StringBuilder response = new StringBuilder("PESSOAS\n");
             people.forEach(person -> response.append(person).append("\n"));
-            showMessageDialog(null, response);
+            showMessageDialog(null, response, "PESSOAS DA LISTA", INFORMATION_MESSAGE);
 
             Double salary = parseDouble(showInputDialog("ENTER SALARY:"));
 
@@ -42,13 +41,13 @@ public class Main {
                     .collect(toList());
             StringBuilder emailsToString = new StringBuilder("Email of people whose salary is more than R$ " + format("%.2f", salary) + "\n");
             emails.forEach(email -> emailsToString.append(email).append("\n"));
-            showMessageDialog(null, emailsToString);
+            showMessageDialog(null, emailsToString, "LISTA FILTRADA", INFORMATION_MESSAGE);
 
             double sum = people.stream()
                     .filter(p -> p.getName().charAt(0) == 'M')
                     .map(Person::getSalary)
                     .reduce(0.0, Double::sum);
-            showMessageDialog(null, "Sum of salary from people whose name starts with 'M': R$ " + format("%.2f", sum));
+            showMessageDialog(null, "Sum of salary from people whose name starts with 'M': R$ " + format("%.2f", sum), "SOMA FILTRADA", INFORMATION_MESSAGE);
 
         } catch (IOException e) {
             showMessageDialog(null, e.getMessage());
